@@ -100,15 +100,29 @@ window.onload = function() { // Waits for browser window to finish loading befor
 
          
    
-          drawImageIOSFix(context,img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
-
+          drawImageIOSFix(b_context,img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
+          
           /*  +++++++++++++++ BEGIN IMAGE PROCESSING +++++++++++++++ */
           /*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
           /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
           
-       
-          
+
+        var b_canvas = b_context.getImageData(0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
+        var b_context = imageData.data;
+
+        for(var i = 0; i < data.length; i += 4) (        
+          // 
+          data[i] = 0;
+         // 
+          data[i+1] = 0;
+        )
+
+        // overwrite original image
+        b_context.putImageData(imageData, 0, 0);
+      
+      drawImageIOSFix(b_context,img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
+
         } // end of img.onload
         
         img.src = reader.result;
