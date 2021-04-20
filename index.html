@@ -107,8 +107,7 @@ window.onload = function() { // Waits for browser window to finish loading befor
 
           /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
           
-          
-          
+       
           
         } // end of img.onload
         
@@ -146,8 +145,16 @@ window.onload = function() { // Waits for browser window to finish loading befor
         context.font = '20pt Calibri';
         context.fillStyle = "black";
         context.fillText("Original image will go here", 10, 20);
+        </script>
+     
+      <canvas id="dataCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+      <script> /* This script initiates the canvas and puts the text on the canvas "dataCanvas" */
+        var b_canvas = document.getElementById('dataCanvas');
+        var b_context = b_canvas.getContext("2d");
+        b_context.font = '20pt Calibri';
+        b_context.fillStyle = "black";
+        b_context.fillText("Altered image will go here", 10, 20);
        
-   
        
       </script>
 
