@@ -153,7 +153,10 @@ window.onload = function() { // Waits for browser window to finish loading befor
         b_context.font = '20pt Calibri';
         b_context.fillStyle = "black";
         b_context.fillText("Altered image will go here", 10, 20);
-       
+        
+   function copy() {
+        var imageData = context.getImageData(0, 0, 600, 500)
+        b_context.putImageData(imageData, 0, 0)
        
       </script>
 
