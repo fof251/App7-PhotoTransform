@@ -106,7 +106,17 @@ window.onload = function() { // Waits for browser window to finish loading befor
           /*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
           /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
-          
+        var b_canvas = document.getElementById('dataCanvas'); /*this is where it recognizes canvas 2 to emit only blue pixel*/
+        var b_context = b_canvas.getContext("2d"); /*this is where it just mentions that the canvas in 2-dimensional*/
+         
+        var imageData = context.getImageData(0, 0, 600,500); /*measurements and dimensions for the canvas*/
+        var data = imageData.data; 
+         
+           for(var i = 0, n = data.length; i < n; i += 4) {  /*purpose of this function is to emit the blue pixel*/
+               data[i]=0; /*green set to zero, just want blue*/
+               data[i + 1]=0; /*red set to zero, just want blue*/
+               }  
+               b_context.putImageData(imageData, 0, 0);
 
         } // end of img.onload
         
