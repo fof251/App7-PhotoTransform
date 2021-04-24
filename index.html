@@ -26,8 +26,8 @@
   http://stackoverflow.com/questions/11929099/html5-canvas-drawimage-ratio-bug-ios
   
   Brief Description of Goal of Code:
-  The goal of this assignment is to start tapping into the more powerful features of HTML5 on a mobile device. This code is supposed use the camera feature of the phone 
-  or the file system of the computer to load an image onto a canvas element and also do do some basic image analysis that will show the blue intensity of a photo. Only blue
+  The goal of this assignment is to start tapping into the more powerful features of HTML5 on a mobile device. This code is supposed to use the camera feature of the phone 
+  or the file system of the computer to load an image onto a canvas element and also do some basic image analysis that will show the blue intensity of a photo. Only blue
   intensity no red or green so have to set red and green to zero.
 <!--added goals of assignment and the app--!>
 
@@ -157,9 +157,9 @@ window.onload = function() { // Waits for browser window to finish loading befor
       </div>
       <div id="messageDisplayArea"></div>
       
- /* To avoid confusion: name of the first canvas : 'myCanvas'; name of second canvas: 'dataCanvas'*/
+ <!--To avoid confusion: name of the first canvas : 'myCanvas'; name of second canvas: 'dataCanvas'-->
      
-      <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas> /*Creates the first canvas*/
+      <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas> <!--Creates the first canvas-->
       <script> /* This script initiates the canvas and puts the text on the canvas "myCanvas" */
         var canvas = document.getElementById('myCanvas'); /*refers and calls first canvas by its name; must match with name above */
         var context = canvas.getContext("2d"); /*makes it a two dimensional canvas*/
@@ -170,7 +170,7 @@ window.onload = function() { // Waits for browser window to finish loading befor
         will appear as regular on the left canvas*/
         </script>
      
-      <canvas id="dataCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas> /*Creates the second canvas (two canvases are necessary)*/
+      <canvas id="dataCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas> <!--creates the second canvas (need two canvases)-->
       <script> /* This script initiates the canvas and puts the text on the canvas "dataCanvas" */
         var b_canvas = document.getElementById('dataCanvas'); /*refers and calls second canvas by its name; must match with name above */
         var b_context = b_canvas.getContext("2d"); /*makes it a two dimensional canvas*/
