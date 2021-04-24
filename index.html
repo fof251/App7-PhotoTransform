@@ -14,8 +14,9 @@
  
   Authors in chronological order of contribution:
   Author 1: Timothy E. Riedel
-  Author 2: Faith Folorunso
-<!--added my name in replace of Author 2--!>
+  Author 2: Kirsten Yanagi
+  Author 3: Faith Folorunso
+<!--added my name as author 3--!>
   
   References:
   http://docs.webplatform.org/wiki/concepts/programming/drawing_images_onto_canvas#Loading_the_image_programmatically
@@ -26,16 +27,19 @@
   
   Brief Description of Goal of Code:
   The goal of this assignment is to start tapping into the more powerful features of HTML5 on a mobile device. This code is supposed use the camera feature of the phone 
-  or the file system of the computer to load an image onto a canvas element and also do do some basic image analysis.
+  or the file system of the computer to load an image onto a canvas element and also do do some basic image analysis that will show the blue intensity of a photo. Only blue
+  intensity no red or green so have to set red and green to zero.
+<!--added goals of assignment and the app--!>
 
  
   Known Issues:
   No known issues. 
+<!--added that there were no known issues--!>
 -->
 
  <head>
   <meta charset="utf-8">
-  <title>Photo Transform</title>
+  <title>Photo Transform</title> 
   <meta name="viewport" content="width=device-width, initial-scale=.7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
@@ -50,7 +54,7 @@
 */
  function detectVerticalSquash(img) {
   var iw = img.naturalWidth, ih = img.naturalHeight;
-  var canvas = document.createElement('canvas');
+  var canvas = document.createElement('canvas'); //same var canvas line that is include on the first canvas ('myCanvas')
   canvas.width = 1;
   canvas.height = ih;
   var ctx = canvas.getContext('2d');
@@ -100,23 +104,29 @@ window.onload = function() { // Waits for browser window to finish loading befor
 
          
    
-          drawImageIOSFix(context,img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
+          drawImageIOSFix(context,img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500); /* The canvas is 600 by 500. */
+          /* both canvases will have the same dimensions */
           
           /*  +++++++++++++++ BEGIN IMAGE PROCESSING +++++++++++++++ */
           /*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
           /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
-        var b_canvas = document.getElementById('dataCanvas'); /*this is where it recognizes canvas 2 to emit only blue pixel*/
-        var b_context = b_canvas.getContext("2d"); /*this is where it just mentions that the canvas in 2-dimensional*/
+        var b_canvas = document.getElementById('dataCanvas'); /*this is line the code recognizes canvas 2 (called 'dataCanvas') to emit only blue pixels*/
+        var b_context = b_canvas.getContext("2d"); /*this line is to make sure that the canvas is in 2-dimensional and not 3-dimensional*/
+        /*had to include 'b' in front of canvas and context so that the code refers to canvas2 and not canvas one*/
+        /* without the 'b' the image appeared and loaded on wrong canvas (flipped) */
+        /* used 'b' to differentiate variables for canvas 1 and 2*/
          
         var imageData = context.getImageData(0, 0, 600,500); /*measurements and dimensions for the canvas*/
+        /* this variable will collect data from the image that is selected  */
         var data = imageData.data; 
          
            for(var i = 0, n = data.length; i < n; i += 4) {  /*purpose of this function is to emit the blue pixel*/
-               data[i]=0; /*green set to zero, just want blue*/
-               data[i + 1]=0; /*red set to zero, just want blue*/
+               data[i]=0; /*green intensity set to zero, just want blue*/
+               data[i + 1]=0; /*red intensity set to zero, just want blue*/
                }  
                b_context.putImageData(imageData, 0, 0);
+               /*displays image and collected image data on canvas 2*/
 
         } // end of img.onload
         
@@ -127,7 +137,7 @@ window.onload = function() { // Waits for browser window to finish loading befor
     } // end of the if statement checking that file is an image
     else
     {
-      // this is what happens if the orignial file selected is not an image file
+      // this is what happens if the orignial file selected is not an image file, must be an image file (e.g. jpg, png, jpeg, etc.)
       messageDisplayArea.innerHTML = "File not supported!"
     } // end of the else statement if file in NOT an image
   }); // end of the fileInput.addEventListener function
@@ -140,36 +150,48 @@ window.onload = function() { // Waits for browser window to finish loading befor
     <div data-role="header">
     <h1>Primary Colors</h1></div><!-- /header -->
     <div data-role="content">	
-      <h2>Push button to take picture.</h2>
+      <h2>Push button to take picture.</h2> <!--informs the user that the button should be clicked to upload a picture to the app-->
       <div>
         Press orange button to create or choose image file:
         <input type="file" id="fileInput" STYLE="background-color: #FF6600;">
       </div>
       <div id="messageDisplayArea"></div>
       
-      <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+ /* To avoid confusion: name of the first canvas : 'myCanvas'; name of second canvas: 'dataCanvas'*/
+     
+      <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas> /*Creates the first canvas*/
       <script> /* This script initiates the canvas and puts the text on the canvas "myCanvas" */
-        var canvas = document.getElementById('myCanvas');
-        var context = canvas.getContext("2d");
-        context.font = '20pt Calibri';
-        context.fillStyle = "black";
-        context.fillText("Original image will go here", 10, 20);
+        var canvas = document.getElementById('myCanvas'); /*refers and calls first canvas by its name; must match with name above */
+        var context = canvas.getContext("2d"); /*makes it a two dimensional canvas*/
+        context.font = '20pt Calibri'; /*The font of the text will be Calibri and the size will be 20 pt; good size and font because do not want font to be unable to read or
+        to be too big or too small*/
+        context.fillStyle = "black"; /*the color of the text on the canvas will be black*/
+        context.fillText("Original image will go here", 10, 20); /*Text that will appear on the canvas before image appears and lets the user know that the image they upload
+        will appear as regular on the left canvas*/
         </script>
      
-      <canvas id="dataCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+      <canvas id="dataCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas> /*Creates the second canvas (two canvases are necessary)*/
       <script> /* This script initiates the canvas and puts the text on the canvas "dataCanvas" */
-        var b_canvas = document.getElementById('dataCanvas');
-        var b_context = b_canvas.getContext("2d");
-        b_context.font = '20pt Calibri';
-        b_context.fillStyle = "black";
-        b_context.fillText("Altered image will go here", 10, 20);
+        var b_canvas = document.getElementById('dataCanvas'); /*refers and calls second canvas by its name; must match with name above */
+        var b_context = b_canvas.getContext("2d"); /*makes it a two dimensional canvas*/
+        b_context.font = '20pt Calibri'; /*The font of the text will be Calibri and the size will be 20 pt; good size and font because do not want font to be unable to read or
+        to be too big or too small*/
+        b_context.fillStyle = "black"; /*the color of the text on the canvas will be black*/
+        b_context.fillText("Altered image will go here", 10, 20); /*Text that will appear on the canvas before image appears and lets the user know that the image they upload
+        will be altered and appear different on the right canvas*/
+           /*Reminder: any line of with 'b' in in is for the second canvas*/
+
         
    function copy() {
         var imageData = context.getImageData(0, 0, 600, 500)
         b_context.putImageData(imageData, 0, 0)
         }
+     /* These lines of code and the function are unnecessary and was my first attemp at trying to get blue intensity to show on the second canvas and did not work at all*/
+         /* Although these lines of code didn't work I am leaving them so I can look back in the future and remember to not try this approach but to to try the approach above*/
+
        
       </script>
+     <!--forgot to close the script the first time and the code did not know what to read and nothing on te app worked-->
 
     </div><!-- /content -->
     <div data-role="footer" data-position="fixed">
